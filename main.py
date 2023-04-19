@@ -1,6 +1,7 @@
-from flask import Flask, request, jsonify
-import servico_de_mensagem
+from flask import Flask, jsonify, request
+
 import facebook.servico_do_facebook as servico_do_facebook
+import servico_de_mensagem
 
 app = Flask(__name__)
 
