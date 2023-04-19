@@ -5,17 +5,17 @@ import facebook.servico_do_facebook as servico_do_facebook
 app = Flask(__name__)
 
 
-@app.route('/webhooks', methods=['GET'])
+@app.route("/webhooks", methods=["GET"])
 def webhook_autenticacao():
     return servico_do_facebook
 
 
-@app.route('/webhooks', methods=['POST'])
+@app.route("/webhooks", methods=["POST"])
 def webhook_recepcao():
     dados_da_mensagem = servico_de_mensagem.obter_dados_da_mensagem(request)
 
-    return jsonify({'status': 'ok'})
+    return jsonify({"status": "ok"})
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run()

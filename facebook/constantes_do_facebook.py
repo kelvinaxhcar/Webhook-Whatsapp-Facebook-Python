@@ -1,1 +1,1 @@
-hub_challenge = 'hub.challenge'
+hub_challenge = "hub.challenge"
