@@ -1,4 +1,6 @@
-from flask import Flask, jsonify, request
+from flask import Flask
+from flask import jsonify
+from flask import request
 
 import facebook.servico_do_facebook as servico_do_facebook
 import servico_de_mensagem
