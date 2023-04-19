@@ -1,0 +1,10 @@
+zero = 0
+entry = 'entry'
+changes = 'changes'
+messages = 'messages'
+type = 'type'
+contacts = 'contacts'
+text = 'text'
+body = 'body'
+wa_id = 'wa_id'
+value = 'value'

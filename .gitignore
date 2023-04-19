@@ -1,1 +1,4 @@
 .idea
+.vs
+__pycache__/
+facebook/__pycache__/
