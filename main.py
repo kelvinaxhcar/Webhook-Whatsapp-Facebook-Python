@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 import servico_de_mensagem
 import facebook.servico_do_facebook as servico_do_facebook
-import os
 from dotenv import load_dotenv
 import servicoDoRavendb as servicoDoRavendb
 
@@ -20,7 +19,7 @@ def webhook_recepcao():
     dados_da_mensagem = servico_de_mensagem.obter_dados_da_mensagem(request)
     sessao = servicoDoRavendb.obter_sessao()
 
-    consta = sessao.load('contas-5-A')
+    consta = sessao.load('documento-1')
 
     return jsonify({'status': 'ok'})
 
