@@ -19,7 +19,7 @@ def webhook_recepcao():
     dados_da_mensagem = servico_de_mensagem.obter_dados_da_mensagem(request)
     sessao = servicoDoRavendb.obter_sessao()
 
-    mensagem_recebida = classes.MensagemRecebida(None, "Ack_numero", dados_da_mensagem)
+    mensagem_recebida = classes.MensagemRecebida(None, dados_da_mensagem)
 
     sessao.store(mensagem_recebida)
     sessao.save_changes()
