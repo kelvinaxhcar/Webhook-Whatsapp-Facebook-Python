@@ -1,5 +1,6 @@
 import json
 import constantes_do_servico_de_mensagem
+import classes as classes
 
 
 def converter_request_para_objeto(request):
@@ -16,4 +17,4 @@ def obter_dados_da_mensagem(request):
     message = valor[constantes_do_servico_de_mensagem.messages][constantes_do_servico_de_mensagem.zero][constantes_do_servico_de_mensagem.text][constantes_do_servico_de_mensagem.body]
     contact = valor[constantes_do_servico_de_mensagem.contacts][constantes_do_servico_de_mensagem.zero][constantes_do_servico_de_mensagem.wa_id]
 
-    return {"tipo": tipo, "message": message, "contato": contact}
+    return classes.MensagemRecebidaDoWhatsapp(tipo, message, contact)
