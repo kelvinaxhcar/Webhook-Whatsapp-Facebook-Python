@@ -1,13 +1,17 @@
 import requests
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
-def enviar_mensagem(mensagem, numro):
-    url = "https://graph.facebook.com/v14.0/113018894757357/messages"
+def enviar_mensagem(mensagem, numero):
+    url = f"https://graph.facebook.com/v14.0/{os.environ['IDENTIFICACAO_DO_NUMERO_DE_TELEFONE']}/messages"
 
     payload = json.dumps({
         "messaging_product": "whatsapp",
-        "to": "{{Recipient-WA-ID}}",
+        "to": '5562998010102',
         "type": "text",
         "template": {
             "name": "hello_world",
@@ -18,7 +22,7 @@ def enviar_mensagem(mensagem, numro):
     })
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': ''
+        'Authorization': F"Bearer {os.environ['TOKEN_DE_ENVIO_DE_MENSAGEM']}"
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)

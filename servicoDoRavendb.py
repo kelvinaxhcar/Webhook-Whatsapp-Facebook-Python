@@ -6,7 +6,7 @@ load_dotenv()
 
 
 def obter_store():
-    store = DocumentStore(os.environ['link_do_ravendb'], os.environ['nome_do_banco'])
+    store = DocumentStore(os.environ['LINK_DO_RAVENDB'], os.environ['NOME_DO_BANCO'])
     store.certificate_pem_path = os.environ['CERT_PATH']
     return store.initialize()
 
