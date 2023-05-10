@@ -18,7 +18,7 @@ def enviar_mensagem(mensagem, numro):
     })
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer EAAHgBf19GAQBAOFMlZAp7pZCmsfAd3IxlcZCnkJF4T0r0gPJ2DlfSpkUIIMBp4dGiJ77t61fXZBjacdxCSqVs6rqXJtlRvZAmZCO3uZBTjKNkKZC3Pot4F0n70iwZCWxW4hm7jT7ZAtzHOujuYpZBbvmICTE6St5tIA4DAbgjyLACaqKZCSnbKsWfYFnw32eWrTyPnehKRxh2GPMOwZDZD'
+        'Authorization': ''
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
