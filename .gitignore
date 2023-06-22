@@ -3,3 +3,4 @@
 __pycache__/
 facebook/__pycache__/
 .env
+env
