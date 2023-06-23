@@ -1,38 +1,35 @@
 import os
 import subprocess
-import sys
+import requests
 
 
 def iniciar_ngrok():
-    project_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, os.pardir))
-    ngrok_path = os.path.join(project_directory.replace("src\\Tunel", ""), "src", "ngrok.exe")
+    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+    ngrok_path = os.path.join(ROOT_DIR, "ngrok.exe")
     auth_token = "2CnojNQ4fMlfsf2S3rfwHfchNMv_oDqjtcLmKi27NQHPM8BB"
 
-    for process in get_processes_by_name("ngrok"):
-        process.kill()
-
+    subprocess.call(['taskkill', '/F', '/IM', 'ngrok.exe'])
     configure_auth_token(ngrok_path, auth_token)
 
-    local_server_port = 7105
-    ngrok_process = subprocess.Popen([ngrok_path, f"http https://localhost:{local_server_port}"])
+    subprocess.Popen([ngrok_path, 'http', f'http://127.0.0.1:5000'])
 
-    print("Túnel do ngrok iniciado. Pressione qualquer tecla para encerrar.")
-    input()
-
-    ngrok_process.terminate()
-
-
-def get_processes_by_name(name):
-    if sys.platform == 'win32':
-        cmd = ['tasklist']
+    ngrok_url = get_ngrok_url()
+    if ngrok_url:
+        print('URL do ngrok:')
+        print(ngrok_url)
     else:
-        cmd = ['ps', '-ef']
+        print('Não foi possível obter a URL do ngrok.')
 
-    output = subprocess.check_output(cmd).decode('utf-8').lower()
-    return [line.split()[0] for line in output.splitlines() if name.lower() in line.lower()]
+
+def get_ngrok_url():
+    response = requests.get('http://localhost:4040/api/tunnels')
+    data = response.json()
+    tunnels = data['tunnels']
+    if tunnels:
+        return tunnels[0]['public_url']
+    return None
 
 
 def configure_auth_token(ngrok_path, auth_token):
-    ngrok_config_process = subprocess.Popen([ngrok_path, f"config authtoken {auth_token}"])
+    ngrok_config_process = subprocess.Popen([ngrok_path, 'config', 'authtoken', auth_token])
     ngrok_config_process.wait()
-

@@ -12,7 +12,7 @@ def enviar_mensagem(mensagem, numero):
     payload = json.dumps({
         "messaging_product": "whatsapp",
         "to": '5562998010102',
-        "type": "text",
+        "type": "template",
         "template": {
             "name": "hello_world",
             "language": {
