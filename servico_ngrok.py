@@ -4,14 +4,14 @@ import requests
 
 
 def iniciar_ngrok():
-    ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-    ngrok_path = os.path.join(ROOT_DIR, "ngrok.exe")
+    diretorio_raiz = os.path.dirname(os.path.abspath(__file__))
+    giretorio_do_ngrok = os.path.join(diretorio_raiz, "ngrok.exe")
     auth_token = os.environ['AUTH_TOKEN_NGROK']
 
     subprocess.call(['taskkill', '/F', '/IM', 'ngrok.exe'])
-    configure_auth_token(ngrok_path, auth_token)
+    configure_auth_token(giretorio_do_ngrok, auth_token)
 
-    subprocess.Popen([ngrok_path, 'http', f'http://127.0.0.1:5000'])
+    subprocess.Popen([giretorio_do_ngrok, 'http', f'http://127.0.0.1:{os.getenv("PORTA")}'])
 
     ngrok_url = get_ngrok_url()
     if ngrok_url:

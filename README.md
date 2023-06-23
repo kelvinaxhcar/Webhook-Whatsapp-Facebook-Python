@@ -3,6 +3,7 @@
 
 Variaveis de ambiente
 
+PORTA=\
 link_do_ravendb = '' \
 nome_do_banco = ''\
 CERT_PATH = ''\

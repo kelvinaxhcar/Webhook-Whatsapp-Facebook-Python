@@ -1,10 +1,9 @@
-from flask import Flask, request, jsonify
 import servico_de_mensagem
 import facebook.servico_do_facebook as servico_do_facebook
 import servicoDoRavendb as servicoDoRavendb
 import classes as classes
 import facebook.servico_de_envio_de_mensagem as servico_de_envio_de_mensagem
-from flask import Flask, render_template, make_response, send_from_directory
+from flask import Flask, request, jsonify
 import os
 from dotenv import load_dotenv
 import servico_ngrok
@@ -13,36 +12,25 @@ app = Flask(__name__)
 load_dotenv()
 
 
-@app.route('/')
-def render_index():
-    return render_template('index.html')
-
-
-@app.route('/webhooks', methods=['GET'])
+@app.route('/webhook', methods=['GET'])
 def webhook_autenticacao():
     return servico_do_facebook.validar_inscricao(request)
 
 
-@app.route('/webhooks', methods=['POST'])
+@app.route('/webhook', methods=['POST'])
 def webhook_recepcao():
     dados_da_mensagem = servico_de_mensagem.obter_dados_da_mensagem(request)
-    sessao = servicoDoRavendb.obter_sessao()
 
     mensagem_recebida = classes.HistoricoDeMensagemRecebida(None, dados_da_mensagem)
     servico_de_envio_de_mensagem.enviar_mensagem_de_texto(dados_da_mensagem.mensagem, dados_da_mensagem.contato)
 
-    sessao.store(mensagem_recebida)
-    sessao.save_changes()
-
+    servicoDoRavendb.salvar_objeto(mensagem_recebida)
     return jsonify({'status': 'ok'})
 
 
-port = int(os.getenv("PORT", 0))
+port = int(os.getenv("PORTA"))
 if __name__ == '__main__':
-    if os.environ['GERAR_LINK_NGROK'].lower() == 'sim':
-        servico_ngrok.iniciar_ngrok()
     if port != 0:
+        if os.environ['GERAR_LINK_NGROK'].lower() == 'sim':
+            servico_ngrok.iniciar_ngrok()
         app.run(host='0.0.0.0', port=port)
-    else:
-        app.run(debug=True)
-

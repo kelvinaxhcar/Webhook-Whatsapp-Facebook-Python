@@ -15,3 +15,9 @@ def obter_sessao():
     store = obter_store()
     with store.open_session() as session:
         return session
+
+
+def salvar_objeto(objeto):
+    sessao = obter_sessao()
+    sessao.store(objeto)
+    sessao.save_changes()
