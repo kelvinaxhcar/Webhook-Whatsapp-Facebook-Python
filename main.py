@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify
 import os
 from dotenv import load_dotenv
 import servico_ngrok
+import inteligencia.chat as chat
 
 app = Flask(__name__)
 load_dotenv()
@@ -22,7 +23,7 @@ def webhook_recepcao():
     dados_da_mensagem = servico_de_mensagem.obter_dados_da_mensagem(request)
 
     mensagem_recebida = classes.HistoricoDeMensagemRecebida(None, dados_da_mensagem)
-    servico_de_envio_de_mensagem.enviar_mensagem_de_texto(dados_da_mensagem.mensagem, dados_da_mensagem.contato)
+    servico_de_envio_de_mensagem.enviar_mensagem_de_texto(chat.conversar(dados_da_mensagem.mensagem), dados_da_mensagem.contato)
 
     servicoDoRavendb.salvar_objeto(mensagem_recebida)
     return jsonify({'status': 'ok'})
