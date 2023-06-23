@@ -6,7 +6,7 @@ import requests
 def iniciar_ngrok():
     ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
     ngrok_path = os.path.join(ROOT_DIR, "ngrok.exe")
-    auth_token = "2CnojNQ4fMlfsf2S3rfwHfchNMv_oDqjtcLmKi27NQHPM8BB"
+    auth_token = os.environ['AUTH_TOKEN_NGROK']
 
     subprocess.call(['taskkill', '/F', '/IM', 'ngrok.exe'])
     configure_auth_token(ngrok_path, auth_token)
