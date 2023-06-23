@@ -39,7 +39,8 @@ def webhook_recepcao():
 
 port = int(os.getenv("PORT", 0))
 if __name__ == '__main__':
-    servico_ngrok.iniciar_ngrok()
+    if os.environ['GERAR_LINK_NGROK'].lower() == 'sim':
+        servico_ngrok.iniciar_ngrok()
     if port != 0:
         app.run(host='0.0.0.0', port=port)
     else:
