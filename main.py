@@ -29,7 +29,7 @@ def webhook_recepcao():
     sessao = servicoDoRavendb.obter_sessao()
 
     mensagem_recebida = classes.HistoricoDeMensagemRecebida(None, dados_da_mensagem)
-    servico_de_envio_de_mensagem.enviar_mensagem('eee', dados_da_mensagem.contato)
+    servico_de_envio_de_mensagem.enviar_mensagem_de_texto(dados_da_mensagem.mensagem, dados_da_mensagem.contato)
 
     sessao.store(mensagem_recebida)
     sessao.save_changes()
